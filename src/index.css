@@ -60,3 +60,15 @@ body {
   outline-offset: 2px;
 }
 
+/* Gray focus theme for all input fields specifically in Light Theme mode */
+html:not(.dark) input:focus:not(.border-red-500):not(.focus\:ring-red-500),
+html:not(.dark) textarea:focus:not(.border-red-500):not(.focus\:ring-red-500),
+html:not(.dark) select:focus:not(.border-red-500):not(.focus\:ring-red-500) {
+  background-color: #F1F5F9 !important;
+  color: #0F172A !important;
+  border-color: #94A3B8 !important;
+  box-shadow: 0 0 0 2px #CBD5E1 !important;
+  outline: none !important;
+}
+
+

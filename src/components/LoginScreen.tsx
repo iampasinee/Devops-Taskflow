@@ -45,14 +45,6 @@ export default function LoginScreen({ onLoginSuccess, users }: LoginScreenProps)
     }, 600);
   };
 
-  const handleContinueAsDemo = () => {
-    setIsSubmitting(true);
-    setTimeout(() => {
-      onLoginSuccess(users[0]); // Alex Rivera u1
-      setIsSubmitting(false);
-    }, 300);
-  };
-
   return (
     <div className="min-h-screen bg-[#F8FAFC] dark:bg-slate-900 flex items-center justify-center p-4" id="login-screen-root">
       <motion.div
@@ -163,21 +155,48 @@ export default function LoginScreen({ onLoginSuccess, users }: LoginScreenProps)
         </form>
 
         {/* Divider */}
-        <div className="relative flex items-center justify-center py-2">
+        <div className="relative flex items-center justify-center py-1">
           <div className="absolute inset-x-0 border-t border-slate-100 dark:border-slate-700" />
-          <span className="relative px-3 bg-white dark:bg-slate-800 text-slate-400 text-[10px] font-mono">OR</span>
+          <span className="relative px-3 bg-white dark:bg-slate-800 text-slate-400 text-[10px] font-mono uppercase tracking-wider">Or Quick Sign-In As</span>
         </div>
 
-        {/* Secondary Demo access */}
-        <div className="text-center">
-          <button
-            onClick={handleContinueAsDemo}
-            disabled={isSubmitting}
-            className="text-xs font-semibold text-[#2563EB] hover:text-blue-700 transition-colors underline cursor-pointer hover:no-underline"
-            id="btn-login-demo-user"
-          >
-            Continue as demo user (Alex Rivera)
-          </button>
+        {/* Multi-user Quick Selection list */}
+        <div className="space-y-2">
+          <div className="grid grid-cols-1 gap-2 max-h-[180px] overflow-y-auto pr-1">
+            {users.map((u) => (
+              <button
+                key={u.id}
+                type="button"
+                onClick={() => {
+                  setEmail(u.email);
+                  setPassword('password');
+                  setIsSubmitting(true);
+                  setTimeout(() => {
+                    onLoginSuccess(u);
+                    setIsSubmitting(false);
+                  }, 400);
+                }}
+                disabled={isSubmitting}
+                className="flex items-center gap-3 p-2 rounded-lg border border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900/40 hover:bg-slate-50 dark:hover:bg-slate-900 hover:border-blue-200 dark:hover:border-blue-900 transition-all text-left cursor-pointer group"
+              >
+                <div 
+                  className="w-7 h-7 rounded-full flex items-center justify-center text-white text-[10px] font-bold font-mono shadow-xs group-hover:scale-105 transition-transform"
+                  style={{ backgroundColor: u.avatarColor }}
+                >
+                  {u.initials}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-xs font-semibold text-slate-800 dark:text-slate-200 group-hover:text-[#2563EB] dark:group-hover:text-blue-400 transition-colors flex items-center justify-between">
+                    <span className="truncate">{u.name}</span>
+                    <span className="text-[9px] text-[#64748B] dark:text-slate-400 font-normal">{u.role}</span>
+                  </div>
+                  <div className="text-[10px] text-slate-400 dark:text-slate-500 font-mono truncate">
+                    {u.email}
+                  </div>
+                </div>
+              </button>
+            ))}
+          </div>
         </div>
       </motion.div>
     </div>

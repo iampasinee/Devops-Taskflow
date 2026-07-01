@@ -101,9 +101,16 @@ export default function ProjectsScreen({
                       <span className="truncate">{proj.name}</span>
                       <ChevronRight className="w-4 h-4 text-[#64748B] group-hover:translate-x-0.5 transition-transform shrink-0" />
                     </h3>
-                    <p className="text-xs text-[#64748B] dark:text-slate-400 leading-relaxed line-clamp-2 h-8">
-                      {proj.description || 'No description provided.'}
-                    </p>
+                    <div className="text-xs text-[#64748B] dark:text-slate-400 h-5 flex items-center justify-between gap-1 w-full" title={proj.description || 'No description provided.'}>
+                      {proj.description && proj.description.length > 38 ? (
+                        <div className="flex items-center justify-between w-full overflow-hidden">
+                          <span className="truncate flex-1">{proj.description.slice(0, 36)}...</span>
+                          <span className="text-[#2563EB] dark:text-blue-400 font-medium hover:underline shrink-0 text-[11px] ml-1">read more</span>
+                        </div>
+                      ) : (
+                        <span className="truncate w-full">{proj.description || 'No description provided.'}</span>
+                      )}
+                    </div>
                   </div>
                 </div>
 
