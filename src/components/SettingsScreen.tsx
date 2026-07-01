@@ -5,12 +5,16 @@ import { User, AppSettings } from '../types';
 
 interface SettingsScreenProps {
   currentUser: User;
+  themeMode: 'light' | 'dark';
+  onThemeChange: (mode: 'light' | 'dark') => void;
   onUpdateProfile: (updatedProfile: Partial<User>) => void;
   onTriggerToast: (msg: string, type: 'success' | 'error') => void;
 }
 
 export default function SettingsScreen({
   currentUser,
+  themeMode,
+  onThemeChange,
   onUpdateProfile,
   onTriggerToast,
 }: SettingsScreenProps) {
@@ -22,7 +26,6 @@ export default function SettingsScreen({
 
   // Preference state (Client-side toggling)
   const [defaultView, setDefaultView] = useState<'board' | 'list'>('board');
-  const [themeMode, setThemeMode] = useState<'light' | 'dark'>('light');
   const [defaultSort, setDefaultSort] = useState<'deadline' | 'priority' | 'createdAt'>('deadline');
 
   const [nameError, setNameError] = useState('');
@@ -31,13 +34,7 @@ export default function SettingsScreen({
 
   // Toggle Theme mode function
   const handleThemeChange = (mode: 'light' | 'dark') => {
-    setThemeMode(mode);
-    const htmlEl = document.documentElement;
-    if (mode === 'dark') {
-      htmlEl.classList.add('dark-theme');
-    } else {
-      htmlEl.classList.remove('dark-theme');
-    }
+    onThemeChange(mode);
   };
 
   const handleSave = (e: React.FormEvent) => {
@@ -224,7 +221,7 @@ export default function SettingsScreen({
                   onClick={() => handleThemeChange('light')}
                   className={`px-3 py-2 text-xs font-semibold rounded border transition-all cursor-pointer ${
                     themeMode === 'light'
-                      ? 'bg-blue-50/50 border-blue-200 text-[#2563EB] ring-1 ring-[#2563EB]'
+                      ? 'bg-blue-50/50 dark:bg-blue-950/40 border-blue-200 dark:border-blue-800 text-[#2563EB] dark:text-blue-400 ring-1 ring-[#2563EB]'
                       : 'border-slate-150 dark:border-slate-700 text-[#64748B] dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900'
                   }`}
                   id="btn-theme-light"
@@ -236,12 +233,12 @@ export default function SettingsScreen({
                   onClick={() => handleThemeChange('dark')}
                   className={`px-3 py-2 text-xs font-semibold rounded border transition-all cursor-pointer ${
                     themeMode === 'dark'
-                      ? 'bg-blue-50/50 border-blue-200 text-[#2563EB] ring-1 ring-[#2563EB]'
+                      ? 'bg-blue-50/50 dark:bg-blue-950/40 border-blue-200 dark:border-blue-800 text-[#2563EB] dark:text-blue-400 ring-1 ring-[#2563EB]'
                       : 'border-slate-150 dark:border-slate-700 text-[#64748B] dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900'
                   }`}
                   id="btn-theme-dark"
                 >
-                  Dark Theme (Beta)
+                  Dark Theme
                 </button>
               </div>
             </div>

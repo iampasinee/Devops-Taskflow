@@ -56,6 +56,9 @@ export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => 
     getLocalStorage('tf_is_authenticated', false)
   );
+  const [themeMode, setThemeMode] = useState<'light' | 'dark'>(() => 
+    getLocalStorage<'light' | 'dark'>('tf_theme_mode', 'light')
+  );
 
   // Router State
   const [route, setRoute] = useState<{
@@ -99,6 +102,18 @@ export default function App() {
   useEffect(() => {
     localStorage.setItem('tf_sidebar_collapsed', JSON.stringify(isSidebarCollapsed));
   }, [isSidebarCollapsed]);
+
+  useEffect(() => {
+    localStorage.setItem('tf_theme_mode', themeMode);
+    const htmlEl = document.documentElement;
+    if (themeMode === 'dark') {
+      htmlEl.classList.add('dark');
+      htmlEl.classList.add('dark-theme');
+    } else {
+      htmlEl.classList.remove('dark');
+      htmlEl.classList.remove('dark-theme');
+    }
+  }, [themeMode]);
 
   useEffect(() => {
     localStorage.setItem('tf_is_authenticated', JSON.stringify(isAuthenticated));
@@ -372,6 +387,8 @@ export default function App() {
         return (
           <SettingsScreen
             currentUser={currentUser}
+            themeMode={themeMode}
+            onThemeChange={setThemeMode}
             onUpdateProfile={handleUpdateProfile}
             onTriggerToast={triggerToast}
           />

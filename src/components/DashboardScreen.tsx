@@ -302,9 +302,6 @@ export default function DashboardScreen({
                                 >
                                   {proj?.name || 'TaskFlow'}
                                 </span>
-                                <span className="font-mono text-[9px] text-[#64748B]">
-                                  {task.id}
-                                </span>
                               </div>
                             </div>
                           </td>
