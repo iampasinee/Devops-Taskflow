@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  /* Custom visual tokens */
+  --color-brand: #2563EB;
+  --color-brand-hover: #1D4ED8;
+  --color-brand-subtle: #EFF6FF;
+
+  /* Alert colors for priority/badges */
+  --color-p-low: #64748B;
+  --color-p-medium: #2563EB;
+  --color-p-high: #F59E0B;
+  --color-p-urgent: #DC2626;
+
+  --animate-fade-in: fade-in 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@layer utilities {
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: rgba(156, 163, 175, 0.3);
+    border-radius: 9999px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(156, 163, 175, 0.5);
+  }
+}
+
+/* Base custom styles to respect the design north star */
+body {
+  font-family: var(--font-sans);
+  background-color: #F8FAFC;
+  color: #0F172A;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Support dark mode preferences toggling */
+.dark-theme body {
+  background-color: #0F172A;
+  color: #F1F5F9;
+}
+
+/* Ring outline focus state */
+*:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+}
+
